@@ -8,6 +8,7 @@ import { FooterComponent } from "../../components/layout/footer/footer.component
   standalone: true,
   imports: [NavBlanksComponent, RouterOutlet, FooterComponent],
   templateUrl: './blank-layout.component.html',
+  styleUrls: ['./blank-layout.component.scss']
 })
 export class BlankLayoutComponent {
 

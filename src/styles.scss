@@ -17,18 +17,20 @@ body {
 .nav-link {
   transition: unset !important;
 }
+
 .active-link {
-  background-color: var(--main-color) !important;
-  color: var(--light-color) !important;
+  color: var(--main-color) !important;
   border-radius: 5px;
 }
 
 .rating-color {
   color: var(--rating-color);
 }
+
 .cursor-pointer {
   cursor: pointer;
 }
+
 a,
 a:hover {
   color: black;
@@ -49,15 +51,19 @@ a:hover {
 .font-sm {
   font-size: 12px;
 }
+
 .text-main {
   color: var(--main-color);
 }
+
 .bg-main {
   background-color: var(--main-color) !important;
 }
+
 .bg-main-light {
   background-color: var(--light-color) !important;
 }
+
 .btn-main {
   background-color: var(--main-color);
   padding: 7px 20px;
@@ -67,13 +73,16 @@ a:hover {
   cursor: pointer;
   transition: background-color 0.5s;
 }
+
 .btn-main:disabled {
   cursor: not-allowed;
   background-color: #ccc;
 }
+
 .btn-main:disabled:hover {
   background-color: #ccc;
 }
+
 .btn-main:hover {
   background-color: #11bd11;
 }
