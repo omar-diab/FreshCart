@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import {
   AbstractControl,
-  FormControl,
+  FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
@@ -9,6 +9,7 @@ import {
 import { AuthService } from '../../../../core/services/auth/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgClass } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -18,32 +19,58 @@ import { NgClass } from '@angular/common';
   styles: ``,
 })
 export class RegisterComponent {
+  // Services
   private readonly _AuthService = inject(AuthService);
+  private readonly _FormBuilder = inject(FormBuilder);
+  private readonly _Router = inject(Router)
 
   msgError: string = '';
+  msgSuccess: boolean = false;
 
   isLoading: boolean = false;
 
-  registerForm: FormGroup = new FormGroup(
+  registerForm: FormGroup = this._FormBuilder.group(
     {
-      name: new FormControl(null, [
-        Validators.required,
-        Validators.minLength(2),
-        Validators.maxLength(20),
-      ]),
-      email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, [
-        Validators.required,
-        Validators.pattern(/^\w{6,}$/),
-      ]),
-      rePassword: new FormControl(null),
-      phone: new FormControl(null, [
-        Validators.required,
-        Validators.pattern(/^01[0125][0-9]{8}$/),
-      ]),
+      name: [
+        null,
+        [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(20),
+        ],
+      ],
+      email: [null, [Validators.required, Validators.email]],
+      password: [null, [Validators.required, Validators.pattern(/^\w{6,}$/)]],
+      rePassword: [null],
+      phone: [
+        null,
+        [Validators.required, Validators.pattern(/^01[0125][0-9]{8}$/)],
+      ],
     },
-    this.confirmPassword,
+    { validators: [this.confirmPassword] },
   );
+
+  // OLD WAY TO CREATE A FORMGROUP
+  // registerForm: FormGroup = new FormGroup(
+  //   {
+  //     name: new FormControl(null, [
+  //       Validators.required,
+  //       Validators.minLength(2),
+  //       Validators.maxLength(20),
+  //     ]),
+  //     email: new FormControl(null, [Validators.required, Validators.email]),
+  //     password: new FormControl(null, [
+  //       Validators.required,
+  //       Validators.pattern(/^\w{6,}$/),
+  //     ]),
+  //     rePassword: new FormControl(null),
+  //     phone: new FormControl(null, [
+  //       Validators.required,
+  //       Validators.pattern(/^01[0125][0-9]{8}$/),
+  //     ]),
+  //   },
+  //   this.confirmPassword,
+  // );
 
   // Custom Validation function --- g = Registered Form
   confirmPassword(g: AbstractControl) {
@@ -59,14 +86,22 @@ export class RegisterComponent {
       this.isLoading = true;
       this._AuthService.postRegisterFrom(this.registerForm.value).subscribe({
         next: (res) => {
-          console.log(res);
+        if(res.message == 'success') {
+          this.msgSuccess = true
+          setTimeout(() => {
+            this._Router.navigate(['/login'])
+          }, 2000)
+          }
           this.isLoading = false;
         },
-        error: (err:HttpErrorResponse ) => {
-          this.msgError = err.error.message
+        error: (err: HttpErrorResponse) => {
+          this.msgError = err.error.message;
           this.isLoading = false;
         },
       });
+    } else {
+      this.registerForm.setErrors({ mismatch: true });
+      this.registerForm.markAllAsTouched();
     }
   }
 }
