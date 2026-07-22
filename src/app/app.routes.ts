@@ -13,20 +13,20 @@ import { CategoriesComponent } from './components/pages/blanks/categories/catego
 
 export const routes: Routes = [
     { path: '', component: AuthLayoutComponent, children: [
-        { path: '', redirectTo: 'login', pathMatch: 'full' },
-        { path: 'login', component: LoginComponent },
-        { path: 'register', component: RegisterComponent }
+        { path: '', redirectTo: 'login', pathMatch: 'full', title: 'Login' },
+        { path: 'login', component: LoginComponent, title: 'Login' },
+        { path: 'register', component: RegisterComponent, title: 'Register' }
     ]},
 
     { path: '', component: BlankLayoutComponent, children: [
-        { path: '', redirectTo: 'home', pathMatch: 'full' },
-        { path: 'home', component: HomeComponent },
-        { path: 'products', component: ProductsComponent },
-        { path: 'cart', component: CartComponent },
-        { path: 'brands', component: BrandsComponent },
-        { path: 'categories', component: CategoriesComponent },
+        { path: '', redirectTo: 'home', pathMatch: 'full', title: 'Home' },
+        { path: 'home', component: HomeComponent, title: 'Home' },
+        { path: 'products', component: ProductsComponent, title: 'Products' },
+        { path: 'cart', component: CartComponent, title: 'Cart' },
+        { path: 'brands', component: BrandsComponent, title: 'Brands' },
+        { path: 'categories', component: CategoriesComponent, title: 'Categories' },
 
     ]},
 
-    { path: '**', component: NotfoundComponent }
+    { path: '**', component: NotfoundComponent, title: 'Not Found' }
 ];

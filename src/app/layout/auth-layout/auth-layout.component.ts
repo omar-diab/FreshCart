@@ -8,6 +8,7 @@ import { FooterComponent } from "../../components/layout/footer/footer.component
   standalone: true,
   imports: [NavAuthComponent, RouterOutlet, FooterComponent],
   templateUrl: './auth-layout.component.html',
+  styleUrls: ['./auth-layout.component.scss']
 })
 export class AuthLayoutComponent {
 
