@@ -39,8 +39,12 @@ export class LoginComponent {
           if (res.message == 'success') {
             this.msgSuccess = true;
             setTimeout(() => {
+              localStorage.setItem('userToken', res.token)
+
+              this._AuthService.saveUserData()
+
               this._Router.navigate(['/home']);
-            }, 2000);
+            });
           }
           this.isLoading = false;
         },

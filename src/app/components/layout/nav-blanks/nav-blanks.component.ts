@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from "@angular/router";
+import { AuthService } from '../../../core/services/auth/auth.service';
 
 @Component({
   selector: 'app-nav-blanks',
@@ -9,5 +10,9 @@ import { RouterLink, RouterLinkActive } from "@angular/router";
   styles: ``
 })
 export class NavBlanksComponent {
+  private readonly _AuthService = inject(AuthService);
 
+  logedout():void {
+    this._AuthService.logOut();
+  }
 }
