@@ -6,11 +6,12 @@ import { CategoriesService } from '../../../../core/services/categories/categori
 import { ICategories } from '../../../../core/interface/icategories';
 
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CarouselModule],
+  imports: [CarouselModule, RouterLink],
   templateUrl: './home.component.html',
   styles: ``,
 })
@@ -49,7 +50,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       },
     },
     nav: false,
-};
+    
+  };
 
   customOptionsSlider: OwlOptions = {
     loop: true,
@@ -64,7 +66,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     navText: ['', ''],
     items: 1,
     nav: true,
-};
+  };
 
   ngOnInit(): void {
     this.getAllProductsSub = this._ProductsService.getAllProducts().subscribe({

@@ -4,16 +4,13 @@
             <div class="col-md-10">
                 <owl-carousel-o [options]="customOptionsSlider">
                     <ng-template carouselSlide>
-                        <img src="../../../../../assets/images/slider-image-1.jpeg" class="w-100 slider-big-img"
-                            alt="slider">
+                        <img src="./assets/images/slider-image-1.jpeg" class="w-100 slider-big-img" alt="slider">
                     </ng-template>
                     <ng-template carouselSlide>
-                        <img src="../../../../../assets/images/slider-image-2.jpeg" class="w-100 slider-big-img"
-                            alt="slider">
+                        <img src="./assets/images/slider-image-2.jpeg" class="w-100 slider-big-img" alt="slider">
                     </ng-template>
                     <ng-template carouselSlide>
-                        <img src="../../../../../assets/images/slider-image-3.jpeg" class="w-100 slider-big-img"
-                            alt="slider">
+                        <img src="./assets/images/slider-image-3.jpeg" class="w-100 slider-big-img" alt="slider">
                     </ng-template>
                 </owl-carousel-o>
             </div>
@@ -50,13 +47,15 @@
     <div class="container">
         <h2 class="text-main mb-2">Popular Products:</h2>
         <div class="row g-3">
-            @for (product of productsList.slice(0, 12); track product.id) {
-            <div class="col-md-2">
-                <div class="product p-2 shadow">
+            @for (product of productsList.slice(0, 8); track product.id) {
+            <div class="col-md-3">
+                <div class="product p-2 shadow cr" [routerLink]="['/details', product._id]">
                     <img [src]="product.imageCover" [alt]="product.title" class="w-100">
-                    <h3 class="small text-main">{{product.category.name}}</h3>
-                    <h4 class="h6">{{product.title.split(' ', 2).join(" ")}}</h4>
-                    <div class="d-flex justify-content-between align-items-center">
+                    <div class="p-2">
+                        <h3 class="small text-main">{{product.category.name}}</h3>
+                        <h4 class="h6">{{product.title.split(' ', 2).join(" ")}}</h4>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center p-2">
                         <span>{{product.price}} TL</span>
                         <div>
                             @for (star of [1, 2, 3, 4, 5].slice(0, product.ratingsAverage); track $index) {
