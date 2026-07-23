@@ -7,17 +7,20 @@ import { ICategories } from '../../../../core/interface/icategories';
 
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { RouterLink } from "@angular/router";
+import { TermTextPipe } from '../../../../core/pipes/termText/term-text.pipe';
+import { CartService } from '../../../../core/services/cart/cart.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CarouselModule, RouterLink],
+  imports: [CarouselModule, RouterLink, TermTextPipe],
   templateUrl: './home.component.html',
   styles: ``,
 })
 export class HomeComponent implements OnInit, OnDestroy {
   private readonly _ProductsService = inject(ProductsService);
   private readonly _CategoriesService = inject(CategoriesService);
+  private readonly _CartService = inject(CartService);
 
   productsList: IProducts[] = [];
   categoriesList: ICategories[] = [];
@@ -67,6 +70,18 @@ export class HomeComponent implements OnInit, OnDestroy {
     items: 1,
     nav: true,
   };
+
+  addToCart(id: string):void {
+    this._CartService.addToCart(id).subscribe({
+      next:(res) => {
+        console.log('add to cart');
+      },
+      error:(err) => {
+        console.log(err);
+      }
+    })
+  }
+
 
   ngOnInit(): void {
     this.getAllProductsSub = this._ProductsService.getAllProducts().subscribe({

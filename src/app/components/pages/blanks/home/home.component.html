@@ -49,25 +49,28 @@
         <div class="row g-3">
             @for (product of productsList.slice(0, 8); track product.id) {
             <div class="col-md-3">
-                <div class="product p-2 shadow cr" [routerLink]="['/details', product._id]">
-                    <img [src]="product.imageCover" [alt]="product.title" class="w-100">
-                    <div class="p-2">
-                        <h3 class="small text-main">{{product.category.name}}</h3>
-                        <h4 class="h6">{{product.title.split(' ', 2).join(" ")}}</h4>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center p-2">
-                        <span>{{product.price}} TL</span>
-                        <div>
-                            @for (star of [1, 2, 3, 4, 5].slice(0, product.ratingsAverage); track $index) {
-                            <span><i class="fa-solid fa-star rating-color"></i></span>
-                            }
-                            @if (product.ratingsAverage % 1 !== 0) {
-                            <i class="fa-solid fa-star-half-stroke rating-color"></i>
-                            }
-                            <span class="text-muted">{{product.ratingsAverage}}</span>
+                <div class="product p-2 shadow cr">
+                    <div [routerLink]="['/details', product._id]">
+                        <img [src]="product.imageCover" [alt]="product.title" class="w-100">
+                        <div class="p-2">
+                            <h3 class="small text-main">{{product.category.name}}</h3>
+                            <h4 class="h5">{{product.title | termText : 3}}</h4>
+                            <h5 class="h6">{{product.description | termText : 2}}</h5>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center p-2">
+                            <span>{{product.price}} TL</span>
+                            <div>
+                                @for (star of [1, 2, 3, 4, 5].slice(0, product.ratingsAverage); track $index) {
+                                <span><i class="fa-solid fa-star rating-color"></i></span>
+                                }
+                                @if (product.ratingsAverage % 1 !== 0) {
+                                <i class="fa-solid fa-star-half-stroke rating-color"></i>
+                                }
+                                <span class="text-muted">{{product.ratingsAverage}}</span>
+                            </div>
                         </div>
                     </div>
-                    <button class="btn-main w-100 my-2">Add To Cart</button>
+                    <button class="btn-main w-100 my-2" (click)="addToCart(product._id)">Add To Cart</button>
                 </div>
             </div>
             }
