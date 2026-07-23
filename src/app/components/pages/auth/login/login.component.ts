@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgClass } from '@angular/common';
@@ -8,7 +8,7 @@ import { NgClass } from '@angular/common';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [NgClass, ReactiveFormsModule],
+  imports: [NgClass, ReactiveFormsModule, RouterLink],
   templateUrl: './login.component.html',
   styles: ``,
 })

@@ -56,13 +56,17 @@
                 }
             </div>
 
-            <button [disabled]="loginForm.invalid || isLoading" class="btn-main ms-auto d-block"> Login
-                @if(isLoading) {
-                <span>
-                    <i class="fas fa-spin fa-spinner"></i>
-                </span>
-                }
-            </button>
+            <div class="d-flex align-items-center justify-content-between gap-2">
+                <a routerLink="/forgetpassword" class="link-primary">Forget Password</a>
+
+                <button [disabled]="loginForm.invalid || isLoading" class="btn-main"> Login
+                    @if(isLoading) {
+                    <span>
+                        <i class="fas fa-spin fa-spinner"></i>
+                    </span>
+                    }
+                </button>
+            </div>
 
         </form>
     </div>
