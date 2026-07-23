@@ -14,6 +14,8 @@ import { authGuard } from './core/guards/navigateToBlanks/auth.guard';
 import { logedGuard } from './core/guards/navigateToLogin/loged.guard';
 import { ProductsdetailspageComponent } from './components/pages/blanks/productsdetailspage/productsdetailspage/productsdetailspage.component';
 import { ForgetpasswordComponent } from './components/pages/blanks/forgetpassword/forgetpassword.component';
+import { AllordersComponent } from './components/pages/blanks/allorders/allorders.component';
+import { OrdersComponent } from './components/pages/blanks/orders/orders.component';
 
 export const routes: Routes = [
   {
@@ -40,6 +42,8 @@ export const routes: Routes = [
       { path: 'brands', component: BrandsComponent, title: 'Brands' },
       { path: 'categories', component: CategoriesComponent, title: 'Categories'},
       { path: 'details/:id', component: ProductsdetailspageComponent, title: 'Product Details'},
+      { path: 'orders/:id', component: OrdersComponent, title: 'Check Out Order'},
+      { path: 'allorders', component: AllordersComponent, title: 'All Orders Page'},
     ],
   },
 

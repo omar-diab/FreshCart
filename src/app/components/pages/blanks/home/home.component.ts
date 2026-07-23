@@ -6,9 +6,10 @@ import { CategoriesService } from '../../../../core/services/categories/categori
 import { ICategories } from '../../../../core/interface/icategories';
 
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
-import { RouterLink } from "@angular/router";
+import { RouterLink } from '@angular/router';
 import { TermTextPipe } from '../../../../core/pipes/termText/term-text.pipe';
 import { CartService } from '../../../../core/services/cart/cart.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +22,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   private readonly _ProductsService = inject(ProductsService);
   private readonly _CategoriesService = inject(CategoriesService);
   private readonly _CartService = inject(CartService);
+  private readonly _ToastrService = inject(ToastrService);
 
   productsList: IProducts[] = [];
   categoriesList: ICategories[] = [];
@@ -53,7 +55,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       },
     },
     nav: false,
-    
   };
 
   customOptionsSlider: OwlOptions = {
@@ -71,17 +72,16 @@ export class HomeComponent implements OnInit, OnDestroy {
     nav: true,
   };
 
-  addToCart(id: string):void {
+  addToCart(id: string): void {
     this._CartService.addToCart(id).subscribe({
-      next:(res) => {
-        console.log('add to cart');
+      next: (res) => {
+        this._ToastrService.success(res.message);
       },
-      error:(err) => {
+      error: (err) => {
         console.log(err);
-      }
-    })
+      },
+    });
   }
-
 
   ngOnInit(): void {
     this.getAllProductsSub = this._ProductsService.getAllProducts().subscribe({
