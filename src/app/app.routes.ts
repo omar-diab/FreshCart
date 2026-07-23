@@ -12,6 +12,7 @@ import { BrandsComponent } from './components/pages/blanks/brands/brands.compone
 import { CategoriesComponent } from './components/pages/blanks/categories/categories.component';
 import { authGuard } from './core/guards/navigateToBlanks/auth.guard';
 import { logedGuard } from './core/guards/navigateToLogin/loged.guard';
+import { ProductsdetailspageComponent } from './components/pages/blanks/productsdetailspage/productsdetailspage/productsdetailspage.component';
 
 export const routes: Routes = [
   {
@@ -32,14 +33,11 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full', title: 'Home' },
       { path: 'home', component: HomeComponent, title: 'Home' },
-      { path: 'products', component: ProductsComponent, title: 'Products' },
+      { path: 'products', component: ProductsComponent, title: 'Products'},
       { path: 'cart', component: CartComponent, title: 'Cart' },
       { path: 'brands', component: BrandsComponent, title: 'Brands' },
-      {
-        path: 'categories',
-        component: CategoriesComponent,
-        title: 'Categories',
-      },
+      { path: 'categories', component: CategoriesComponent, title: 'Categories'},
+      { path: 'details/:id', component: ProductsdetailspageComponent, title: 'Product Details'},
     ],
   },
 

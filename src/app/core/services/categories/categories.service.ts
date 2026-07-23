@@ -6,15 +6,16 @@ import { environments } from '../../environments/environments';
 @Injectable({
   providedIn: 'root'
 })
-export class ProductsService {
+export class CategoriesService {
+
   private readonly _HttpClient = inject(HttpClient);
 
-  getAllProducts():Observable<any> {
-    return this._HttpClient.get(`${environments.baseURL}/api/v1/products`)
+  getAllCategories():Observable<any> {
+    return this._HttpClient.get(`${environments.baseURL}/api/v1/categories`)
   }
 
-  getSpecificProduct(id:string | null):Observable<any> {
+  getSpecificCategory(id:string):Observable<any> {
     return this._HttpClient.get(`${environments.baseURL}/api/v1/products/${id}`)
   }
-}
 
+}
