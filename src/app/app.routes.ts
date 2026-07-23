@@ -13,6 +13,7 @@ import { CategoriesComponent } from './components/pages/blanks/categories/catego
 import { authGuard } from './core/guards/navigateToBlanks/auth.guard';
 import { logedGuard } from './core/guards/navigateToLogin/loged.guard';
 import { ProductsdetailspageComponent } from './components/pages/blanks/productsdetailspage/productsdetailspage/productsdetailspage.component';
+import { ForgetpasswordComponent } from './components/pages/blanks/forgetpassword/forgetpassword.component';
 
 export const routes: Routes = [
   {
@@ -23,6 +24,7 @@ export const routes: Routes = [
       { path: '', redirectTo: 'login', pathMatch: 'full', title: 'Login' },
       { path: 'login', component: LoginComponent, title: 'Login' },
       { path: 'register', component: RegisterComponent, title: 'Register' },
+      { path: 'forgetpassword', component: ForgetpasswordComponent, title: 'Register' },
     ],
   },
 

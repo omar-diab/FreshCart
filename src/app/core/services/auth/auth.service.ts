@@ -25,18 +25,29 @@ export class AuthService {
     return this._HttpClient.post(`${environments.baseURL}/api/v1/auth/signin`, data)
   }
 
+  setEmailVerify(data:object): Observable<any> {
+    return this._HttpClient.post(`${environments.baseURL}/api/v1/auth/forgotPasswords`, data)
+  }
+
+  setCodeVerify(data:object): Observable<any> {
+    return this._HttpClient.post(`${environments.baseURL}/api/v1/auth/verifyResetCode`, data)
+  }
+
+  setResetPassword(data:object): Observable<any> {
+    return this._HttpClient.put(`${environments.baseURL}/api/v1/auth/resetPassword`, data)
+  }
+
+
   saveUserData() : void {
     if(localStorage.getItem('userToken') !== null) {
       this.userData = jwtDecode(localStorage.getItem('userToken') !)
     }
   }
 
-
   logOut():void {
     localStorage.removeItem('userToken');
     this.userData = null;
     this._Router.navigate(['/login'])
   }
-
 
 }
