@@ -10,11 +10,12 @@ import { RouterLink } from '@angular/router';
 import { TermTextPipe } from '../../../../core/pipes/termText/term-text.pipe';
 import { CartService } from '../../../../core/services/cart/cart.service';
 import { ToastrService } from 'ngx-toastr';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CarouselModule, RouterLink, TermTextPipe],
+  imports: [CarouselModule, RouterLink, TermTextPipe, CurrencyPipe],
   templateUrl: './home.component.html',
   styles: ``,
 })
@@ -63,7 +64,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     touchDrag: true,
     pullDrag: false,
     autoplay: true,
-    autoplayTimeout: 2000,
+    autoplayTimeout: 4000,
     autoplayHoverPause: true,
     dots: false,
     navSpeed: 700,
@@ -87,6 +88,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.getAllProductsSub = this._ProductsService.getAllProducts().subscribe({
       next: (res) => {
         this.productsList = res.data;
+        console.log(res)
       },
       error: (err) => {
         console.log(err);

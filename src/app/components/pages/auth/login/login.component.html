@@ -1,73 +1,94 @@
-<section>
-    <div class="container bg-main-light shadow p-4 my-3 rounded-4">
-        <h1 class="h2 text-main">Login Now</h1>
+<section class="bg-main-light flex min-h-[calc(100dvh-4rem)] items-center justify-center px-4 py-8">
+    <div class="w-full max-w-md">
 
-        @if(msgSuccess) {
-        <p class="text-white h3 bg-main w-25 text-center p-2 rounded-2 mx-auto">Login Successfully </p>
-        }
-        @else if (msgError) {
-        <p class="alert h3 w-25 text-center p-2 mx-auto">{{msgError}}</p>
-        }
+        <div class="rounded-xl bg-white p-6 shadow-soft sm:p-8">
 
-        <form [formGroup]="loginForm" (ngSubmit)="loginSubmit()">
-            <div class="my-2">
-                <label for="email">Email</label>
-                <input id="email" type="email" class="form-control" formControlName="email" placeholder="Your Email"
-                    [ngClass]="{
-                    'is-valid': !loginForm.get('email')?.errors && (loginForm.get('email')?.touched || loginForm.get('email')?.dirty),
-                    'is-invalid': loginForm.get('email')?.errors && (loginForm.get('email')?.touched || loginForm.get('email')?.dirty)
-                }">
-                @if (loginForm.get('email')?.errors && (loginForm.get('email')?.touched ||
-                loginForm.get('email')?.dirty)) {
-                <div class="alert alert-danger w-50">
-                    @if(loginForm.get('email')?.getError('required')) {
-                    <p class="m-0">Email Is Required</p>
-                    }
-                    @else if (loginForm.get('email')?.getError('email')) {
-                    <p class="m-0">Enter A Valid Email</p>
-                    }
-                    @else {
-                    <p class="m-0">Uknown error</p>
+            <div class="mb-6 text-center">
+                <h1 class="text-2xl font-semibold text-gray-800">Welcome back</h1>
+                <p class="mt-1 text-sm text-gray-500">Login to your FreshCart account</p>
+            </div>
+            
+            <form [formGroup]="loginForm" (ngSubmit)="loginSubmit()">
+
+                <div class="mb-4">
+                    <label for="email" class="mb-1.5 block text-sm font-medium text-gray-700">Email</label>
+                    <div class="relative">
+                        <i
+                            class="fa-regular fa-envelope pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-sm text-gray-400"></i>
+                        <input id="email" type="email" formControlName="email" placeholder="you@example.com"
+                            class="w-full rounded-lg border bg-gray-50 py-2.5 pr-3 pl-10 text-sm transition outline-none focus:bg-white focus:ring-2"
+                            [ngClass]="{
+                'border-gray-200 focus:border-main focus:ring-main/20': !(loginForm.get('email')?.touched || loginForm.get('email')?.dirty),
+                'border-main focus:ring-main/20': !loginForm.get('email')?.errors && (loginForm.get('email')?.touched || loginForm.get('email')?.dirty),
+                'border-red-400 focus:ring-red-500/20': loginForm.get('email')?.errors && (loginForm.get('email')?.touched || loginForm.get('email')?.dirty)
+            }">
+                    </div>
+                    @if (loginForm.get('email')?.errors && (loginForm.get('email')?.touched ||
+                    loginForm.get('email')?.dirty)) {
+                    <div class="mt-1.5 flex items-center gap-1.5 text-xs text-red-600">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        @if(loginForm.get('email')?.getError('required')) {
+                        <span>Email Is Required</span>
+                        }
+                        @else if (loginForm.get('email')?.getError('email')) {
+                        <span>Enter A Valid Email</span>
+                        }
+                        @else {
+                        <span>Uknown error</span>
+                        }
+                    </div>
                     }
                 </div>
-                }
-            </div>
 
-            <div class="my-2">
-                <label for="password">Password</label>
-                <input id="password" type="password" class="form-control" formControlName="password"
-                    placeholder="Your Password" [ngClass]="{
-                    'is-valid': !loginForm.get('password')?.errors && (loginForm.get('password')?.touched || loginForm.get('password')?.dirty),
-                    'is-invalid': loginForm.get('password')?.errors && (loginForm.get('password')?.touched || loginForm.get('password')?.dirty)
-                }">
-                @if (loginForm.get('password')?.errors && (loginForm.get('password')?.touched ||
-                loginForm.get('password')?.dirty)) {
-                <div class="alert alert-danger w-50">
-                    @if(loginForm.get('password')?.getError('required')) {
-                    <p class="m-0">Password Is Required</p>
-                    }
-                    @else if (loginForm.get('password')?.getError('pattern')) {
-                    <p class="m-0">Enter A Valid Password</p>
-                    }
-                    @else {
-                    <p class="m-0">Uknown error</p>
+                <div class="mb-2">
+                    <label for="password" class="mb-1.5 block text-sm font-medium text-gray-700">Password</label>
+                    <div class="relative">
+                        <i
+                            class="fa-solid fa-lock pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-sm text-gray-400"></i>
+                        <input id="password" type="password" formControlName="password" placeholder="••••••••"
+                            class="w-full rounded-lg border bg-gray-50 py-2.5 pr-3 pl-10 text-sm transition outline-none focus:bg-white focus:ring-2"
+                            [ngClass]="{
+                'border-gray-200 focus:border-main focus:ring-main/20': !(loginForm.get('password')?.touched || loginForm.get('password')?.dirty),
+                'border-main focus:ring-main/20': !loginForm.get('password')?.errors && (loginForm.get('password')?.touched || loginForm.get('password')?.dirty),
+                'border-red-400 focus:ring-red-500/20': loginForm.get('password')?.errors && (loginForm.get('password')?.touched || loginForm.get('password')?.dirty)
+              }">
+                    </div>
+                    @if (loginForm.get('password')?.errors && (loginForm.get('password')?.touched ||
+                    loginForm.get('password')?.dirty)) {
+                    <div class="mt-1.5 flex items-center gap-1.5 text-xs text-red-600">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        @if(loginForm.get('password')?.getError('required')) {
+                        <span>Password Is Required</span>
+                        }
+                        @else if (loginForm.get('password')?.getError('pattern')) {
+                        <span>Enter A Valid Password</span>
+                        }
+                        @else {
+                        <span>Uknown error</span>
+                        }
+                    </div>
                     }
                 </div>
-                }
-            </div>
 
-            <div class="d-flex align-items-center justify-content-between gap-2">
-                <a routerLink="/forgetpassword" class="link-primary">Forget Password</a>
+                <div class="mb-5 text-right">
+                    <a routerLink="/forgetpassword" class="text-xs text-gray-500 hover:text-main">Forget Password?</a>
+                </div>
 
-                <button [disabled]="loginForm.invalid || isLoading" class="btn-main"> Login
+                <button [disabled]="loginForm.invalid || isLoading"
+                    class="btn-main flex w-full items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-medium">
                     @if(isLoading) {
-                    <span>
-                        <i class="fas fa-spin fa-spinner"></i>
-                    </span>
+                    <i class="fas fa-spin fa-spinner"></i>
                     }
+                    Login
                 </button>
-            </div>
 
-        </form>
+            </form>
+        </div>
+
+        <p class="mt-5 text-center text-sm text-gray-500">
+            Don't have an account?
+            <a routerLink="/register" class="font-medium text-main hover:underline cursor-pointer">Register now</a>
+        </p>
+
     </div>
 </section>

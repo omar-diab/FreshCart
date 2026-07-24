@@ -1,33 +1,73 @@
-<section class="bg-main-light rounded-4 shadow p-4 my-2 container">
-    <div class="d-flex align-items-center justify-content-between">
-        <h1 class="h2 text-center">Shop Cart</h1>
-        <button class="btn btn-outline-danger" (click)="clearCartItems()">CLear Cart</button>
-    </div>
+<section class="mx-auto my-4 max-w-6xl px-4">
+    <div class="bg-main-light rounded-xl p-4 shadow-soft sm:p-6">
 
-    <p class="">Total Cart Price <span class="text-main">{{cartDetails.totalCartPrice | currency : 'GBP'}}</span></p>
+        <div class="flex items-center justify-between gap-2">
+            <h1 class="text-2xl font-semibold">Shop Cart</h1>
+            <button
+                class="cursor-pointer rounded-lg border border-red-500 px-4 py-1.5 text-sm text-red-500 transition hover:bg-red-500 hover:text-white"
+                (click)="clearCartItems()">
+                Clear Cart
+            </button>
+        </div>
 
-    @for (item of cartDetails.products; track item.product._id) {
-        <div class="row m-3 p-2 border-bottom">
-            <div class="col-md-1">
-                <img [src]="item.product.imageCover" [alt]="item.product.title" class="w-100">
-            </div>
-            <div class="col-md-11 d-flex align-items-center justify-content-between">
-                <div>
-                    <h3 class="h5">{{item.product.title}}</h3>
-                    <p>Price <span class="text-main">{{item.price}}</span></p>
-                    <span class="text-danger cr" (click)="removeItem(item.product._id)"><i
-                            class="fa-solid fa-trash"></i>Remove</span>
+        <p class="mt-2 text-sm">
+            Total Cart Price
+            <span class="text-main font-semibold">{{cartDetails.totalCartPrice | currency }}</span>
+        </p>
+
+        @for (item of cartDetails.products; track item.product._id) {
+        <div class="mt-3 flex flex-col gap-4 border-b border-gray-300 py-4 sm:flex-row sm:items-center">
+
+            <img [src]="item.product.imageCover" [alt]="item.product.title"
+                class="h-24 w-24 shrink-0 rounded-lg bg-white object-contain p-1">
+
+            <div class="flex flex-1 flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+
+                <div class="min-w-0">
+                    <h3 class="truncate font-medium">{{item.product.title}}</h3>
+                    <p class="mt-1 text-sm">
+                        Price <span class="text-main font-medium">{{item.price | currency }}</span>
+                    </p>
+                    <button type="button"
+                        class="mt-1 flex cursor-pointer items-center gap-1.5 text-sm text-red-600 hover:underline"
+                        (click)="removeItem(item.product._id)">
+                        <i class="fa-solid fa-trash"></i>
+                        Remove
+                    </button>
                 </div>
-                <div class="text-main d-flex align-items-center gap-2">
-                    <span (click)="updateCount(item.product._id, item.count + 1)"><i
-                            class="fa-solid fa-circle-plus cr fa-2xl"></i></span>
-                    <span class="h4 m-0">{{item.count}}</span>
-                    <span (click)="updateCount(item.product._id, item.count - 1)"><i
-                            class="fa-solid fa-circle-minus cr fa-2xl"></i></span>
+
+                <div class="flex shrink-0 items-center gap-3">
+                    <button type="button"
+                        class="cursor-pointer text-main disabled:cursor-not-allowed disabled:text-gray-300"
+                        [disabled]="item.count <= 1" (click)="updateCount(item.product._id, item.count - 1)"
+                        aria-label="Decrease quantity">
+                        <i class="fa-solid fa-circle-minus fa-xl"></i>
+                    </button>
+
+                    <span class="w-8 text-center text-lg font-medium">{{item.count}}</span>
+
+                    <button type="button" class="cursor-pointer text-main"
+                        (click)="updateCount(item.product._id, item.count + 1)" aria-label="Increase quantity">
+                        <i class="fa-solid fa-circle-plus fa-xl"></i>
+                    </button>
                 </div>
+
             </div>
         </div>
-    }
+        }
+        @empty {
+        <div class="py-12 text-center">
+            <i class="fa-solid fa-cart-shopping text-4xl text-gray-300"></i>
+            <p class="mt-3 text-gray-500">Your cart is empty</p>
+            <a routerLink="/products" class="btn-main mt-4 inline-block rounded-lg">Browse Products</a>
+        </div>
+        }
 
-    <button class="btn-main mt-2" [routerLink]="['/orders', cartDetails._id]">Take A Order</button>
+        @if (cartDetails.products?.length) {
+        <button class="btn-main mt-4 w-full rounded-lg sm:w-auto" [routerLink]="['/orders', cartDetails._id]">
+            Take A Order
+        </button>
+        }
+
+    </div>
 </section>

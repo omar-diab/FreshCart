@@ -8,14 +8,12 @@ import { RegisterComponent } from './components/pages/auth/register/register.com
 import { HomeComponent } from './components/pages/blanks/home/home.component';
 import { ProductsComponent } from './components/pages/blanks/products/products.component';
 import { CartComponent } from './components/pages/blanks/cart/cart.component';
-import { BrandsComponent } from './components/pages/blanks/brands/brands.component';
-import { CategoriesComponent } from './components/pages/blanks/categories/categories.component';
 import { authGuard } from './core/guards/navigateToBlanks/auth.guard';
 import { logedGuard } from './core/guards/navigateToLogin/loged.guard';
-import { ProductsdetailspageComponent } from './components/pages/blanks/productsdetailspage/productsdetailspage/productsdetailspage.component';
 import { ForgetpasswordComponent } from './components/pages/blanks/forgetpassword/forgetpassword.component';
 import { AllordersComponent } from './components/pages/blanks/allorders/allorders.component';
 import { OrdersComponent } from './components/pages/blanks/orders/orders.component';
+import { ProductsdetailspageComponent } from './components/pages/blanks/productsdetailspage/productsdetailspage.component';
 
 export const routes: Routes = [
   {
@@ -39,8 +37,6 @@ export const routes: Routes = [
       { path: 'home', component: HomeComponent, title: 'Home' },
       { path: 'products', component: ProductsComponent, title: 'Products'},
       { path: 'cart', component: CartComponent, title: 'Cart' },
-      { path: 'brands', component: BrandsComponent, title: 'Brands' },
-      { path: 'categories', component: CategoriesComponent, title: 'Categories'},
       { path: 'details/:id', component: ProductsdetailspageComponent, title: 'Product Details'},
       { path: 'orders/:id', component: OrdersComponent, title: 'Check Out Order'},
       { path: 'allorders', component: AllordersComponent, title: 'All Orders Page'},

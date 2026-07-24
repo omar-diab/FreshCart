@@ -1,20 +1,44 @@
-<section class="bg-main-light shadow rounded-4 container p-2 my-3">
-    <h1 class="text-center text-main">shippingAddress</h1>
+<section class="mx-auto my-6 max-w-md px-4">
+    <div class="rounded-xl bg-gray-100 p-6 shadow-soft sm:p-8">
 
-    <form [formGroup]="orders" (ngSubmit)="OrderSubmit()">
-        <div class="my-2">
-            <label for="details">Details</label>
-            <textarea id="details" class="form-control" formControlName="details"></textarea>
-        </div>
-        <div class="my-2">
-            <label for="phone">Phone</label>
-            <input type="tel" id="phone" class="form-control" formControlName="phone">
-        </div>
-        <div class="my-2">
-            <label for="city">City</label>
-            <input type="text" id="city" class="form-control" formControlName="city">
+        <div class="mb-6 text-center">
+            <h1 class="text-2xl font-semibold text-gray-800">Shipping Address</h1>
+            <p class="mt-1 text-sm text-gray-500">Where should we deliver your order?</p>
         </div>
 
-        <button class="btn-main" type="submit">Ckeck Out</button>
-    </form>
+        <form [formGroup]="orders" (ngSubmit)="OrderSubmit()">
+
+            <div class="mb-4">
+                <label for="details" class="mb-1.5 block text-sm font-medium text-gray-700">Details</label>
+                <textarea id="details" formControlName="details" rows="3" placeholder="Street, building, apartment..."
+                    class="w-full resize-none rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm transition outline-none focus:border-main focus:bg-white focus:ring-2 focus:ring-main/20"></textarea>
+            </div>
+
+            <div class="mb-4">
+                <label for="phone" class="mb-1.5 block text-sm font-medium text-gray-700">Phone</label>
+                <div class="relative">
+                    <i
+                        class="fa-solid fa-phone pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-sm text-gray-400"></i>
+                    <input type="tel" id="phone" formControlName="phone" placeholder="01012345678"
+                        class="w-full rounded-lg border border-gray-200 bg-gray-50 py-2.5 pr-3 pl-10 text-sm transition outline-none focus:border-main focus:bg-white focus:ring-2 focus:ring-main/20">
+                </div>
+            </div>
+
+            <div class="mb-5">
+                <label for="city" class="mb-1.5 block text-sm font-medium text-gray-700">City</label>
+                <div class="relative">
+                    <i
+                        class="fa-solid fa-location-dot pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-sm text-gray-400"></i>
+                    <input type="text" id="city" formControlName="city" placeholder="Istanbul"
+                        class="w-full rounded-lg border border-gray-200 bg-gray-50 py-2.5 pr-3 pl-10 text-sm transition outline-none focus:border-main focus:bg-white focus:ring-2 focus:ring-main/20">
+                </div>
+            </div>
+
+            <button type="submit" [disabled]="orders.invalid"
+                class="btn-main w-full rounded-lg py-2.5 text-sm font-medium">
+                Check Out
+            </button>
+
+        </form>
+    </div>
 </section>

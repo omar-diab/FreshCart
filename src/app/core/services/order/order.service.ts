@@ -11,6 +11,10 @@ export class OrderService {
 
   myHeaders:any = { token : localStorage.getItem('userToken')}
 
+  getUserOrders(userId: string): Observable<any> {
+  return this._HttpClient.get(`${environments.baseURL}/api/v1/orders/user/${userId}`);
+}
+
   checkOut(id:string|null, shippingDetails: object): Observable<any> {
     return this._HttpClient.post(`${environments.baseURL}/api/v1/orders/checkout-session/${id}/?url=${environments.URLServer}`, {
       'shippingDetails': shippingDetails,

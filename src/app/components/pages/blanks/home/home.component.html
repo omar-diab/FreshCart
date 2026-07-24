@@ -1,79 +1,74 @@
-<section class="my-3">
-    <div class="container">
-        <div class="row g-0">
-            <div class="col-md-10">
-                <owl-carousel-o [options]="customOptionsSlider">
-                    <ng-template carouselSlide>
-                        <img src="./assets/images/slider-image-1.jpeg" class="w-100 slider-big-img" alt="slider">
-                    </ng-template>
-                    <ng-template carouselSlide>
-                        <img src="./assets/images/slider-image-2.jpeg" class="w-100 slider-big-img" alt="slider">
-                    </ng-template>
-                    <ng-template carouselSlide>
-                        <img src="./assets/images/slider-image-3.jpeg" class="w-100 slider-big-img" alt="slider">
-                    </ng-template>
-                </owl-carousel-o>
-            </div>
-            <div class="col-md-2">
-                <div>
-                    <img src="./assets/images/slider-image-2.jpeg" class="w-100 slider-small-img" alt="slider">
-                    <img src="./assets/images/slider-image-3.jpeg" class="w-100 slider-small-img" alt="slider">
-                </div>
-            </div>
-        </div>
-    </div>
+<section class="mb-6">
+    <owl-carousel-o [options]="customOptionsSlider">
+        <ng-template carouselSlide>
+            <img src="./assets/images/slider-image-1.jpg" class="block h-[400px] w-full object-cover" alt="slider">
+        </ng-template>
+        <ng-template carouselSlide>
+            <img src="./assets/images/slider-image-2.jpg" class="block h-[400px] w-full object-cover" alt="slider">
+        </ng-template>
+        <ng-template carouselSlide>
+            <img src="./assets/images/slider-image-4.avif" class="block h-[400px] w-full object-cover" alt="slider">
+        </ng-template>
+        <ng-template carouselSlide>
+            <img src="./assets/images/slider-image-5.webp" class="block h-[400px] w-full object-cover" alt="slider">
+        </ng-template>
+    </owl-carousel-o>
 </section>
 
 
-<section class="my-2">
-    <div class="container">
-        <h2 class="text-main mb-2">Popular Categories</h2>
+<section class="my-6">
+    <div class="mx-auto max-w-6xl px-4">
+        <h2 class="text-main mb-3 text-xl font-semibold">Popular Categories</h2>
         <owl-carousel-o [options]="customOptionsCategories">
-
             @for (category of categoriesList; track category._id) {
             <ng-template carouselSlide>
-                <div class="p-2 shadow">
-                    <img [src]="category.image" [alt]="category.name" class="w-100 category-img">
-                    <h3 class="h6 text-main mt-2">{{category.name}}</h3>
+                <div class="rounded-lg p-2 shadow-soft">
+                    <img [src]="category.image" [alt]="category.name" class="category-img w-full rounded-md">
+                    <h3 class="text-main mt-2 truncate text-sm font-medium">{{category.name}}</h3>
                 </div>
             </ng-template>
             }
-
         </owl-carousel-o>
     </div>
 </section>
 
-<section>
-    <div class="container">
-        <h2 class="text-main mb-2">Popular Products:</h2>
-        <div class="row g-3">
+
+<section class="my-6">
+    <div class="mx-auto max-w-6xl px-4">
+        <h2 class="text-main mb-3 text-xl font-semibold">Popular Products:</h2>
+
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             @for (product of productsList.slice(0, 8); track product.id) {
-            <div class="col-md-3">
-                <div class="product p-2 shadow cr">
-                    <div [routerLink]="['/details', product._id]">
-                        <img [src]="product.imageCover" [alt]="product.title" class="w-100">
-                        <div class="p-2">
-                            <h3 class="small text-main">{{product.category.name}}</h3>
-                            <h4 class="h5">{{product.title | termText : 3}}</h4>
-                            <h5 class="h6">{{product.description | termText : 2}}</h5>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center p-2">
-                            <span>{{product.price}} TL</span>
-                            <div>
-                                @for (star of [1, 2, 3, 4, 5].slice(0, product.ratingsAverage); track $index) {
-                                <span><i class="fa-solid fa-star rating-color"></i></span>
-                                }
-                                @if (product.ratingsAverage % 1 !== 0) {
-                                <i class="fa-solid fa-star-half-stroke rating-color"></i>
-                                }
-                                <span class="text-muted">{{product.ratingsAverage}}</span>
-                            </div>
+
+            <div class="product flex cursor-pointer flex-col p-2 shadow-soft">
+
+                <div [routerLink]="['/details', product._id]" class="flex flex-1 flex-col">
+                    <img [src]="product.imageCover" [alt]="product.title" class="w-full rounded-md">
+
+                    <div class="flex-1 p-2">
+                        <h3 class="text-main text-xs">{{product.category.name}}</h3>
+                        <h4 class="mt-1 font-medium">{{product.title | termText : 3}}</h4>
+                        <h5 class="mt-1 text-sm text-gray-500">{{product.description | termText : 2}}</h5>
+                    </div>
+
+                    <div class="flex items-center justify-between p-2">
+                        <span class="font-medium">{{product.price | currency }}</span>
+                        <div class="flex items-center gap-0.5">
+                            @for (star of [1, 2, 3, 4, 5].slice(0, product.ratingsAverage); track $index) {
+                            <i class="fa-solid fa-star text-rating text-xs"></i>
+                            }
+                            @if (product.ratingsAverage % 1 !== 0) {
+                            <i class="fa-solid fa-star-half-stroke text-rating text-xs"></i>
+                            }
+                            <span class="ml-1 text-xs text-gray-500">{{product.ratingsAverage}}</span>
                         </div>
                     </div>
-                    <button class="btn-main w-100 my-2" (click)="addToCart(product._id)">Add To
-                        Cart</button>
                 </div>
+
+                <button class="btn-main my-2 w-full rounded-lg" (click)="addToCart(product._id)">Add To Cart</button>
+
             </div>
+
             }
         </div>
     </div>

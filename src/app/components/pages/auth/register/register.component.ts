@@ -9,13 +9,14 @@ import {
 import { AuthService } from '../../../../core/services/auth/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgClass } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, NgClass],
+  imports: [ReactiveFormsModule, NgClass, RouterLink],
   templateUrl: './register.component.html',
   styles: ``,
 })
@@ -23,7 +24,9 @@ export class RegisterComponent implements OnDestroy {
   // Services
   private readonly _AuthService = inject(AuthService);
   private readonly _FormBuilder = inject(FormBuilder);
-  private readonly _Router = inject(Router)
+  private readonly _Router = inject(Router);
+    private readonly _ToastrService = inject(ToastrService);
+  
 
   msgError: string = '';
   msgSuccess: boolean = false;
@@ -53,28 +56,6 @@ export class RegisterComponent implements OnDestroy {
     { validators: [this.confirmPassword] },
   );
 
-  // OLD WAY TO CREATE A FORMGROUP
-  // registerForm: FormGroup = new FormGroup(
-  //   {
-  //     name: new FormControl(null, [
-  //       Validators.required,
-  //       Validators.minLength(2),
-  //       Validators.maxLength(20),
-  //     ]),
-  //     email: new FormControl(null, [Validators.required, Validators.email]),
-  //     password: new FormControl(null, [
-  //       Validators.required,
-  //       Validators.pattern(/^\w{6,}$/),
-  //     ]),
-  //     rePassword: new FormControl(null),
-  //     phone: new FormControl(null, [
-  //       Validators.required,
-  //       Validators.pattern(/^01[0125][0-9]{8}$/),
-  //     ]),
-  //   },
-  //   this.confirmPassword,
-  // );
-
   // Custom Validation function --- g = Registered Form
   confirmPassword(g: AbstractControl) {
     if (g.get('password')?.value === g.get('rePassword')?.value) {
@@ -89,6 +70,7 @@ export class RegisterComponent implements OnDestroy {
       this.isLoading = true;
       this.registerSub = this._AuthService.postRegisterFrom(this.registerForm.value).subscribe({
         next: (res) => {
+        this._ToastrService.success(res.message)
         if(res.message == 'success') {
           this.msgSuccess = true
           setTimeout(() => {
@@ -100,6 +82,7 @@ export class RegisterComponent implements OnDestroy {
         error: (err: HttpErrorResponse) => {
           this.msgError = err.error.message;
           this.isLoading = false;
+          this._ToastrService.error(this.msgError)
         },
       });
     } else {
