@@ -1,1 +1,23 @@
-<p>notfound works!</p>
+<section class="bg-main-light flex min-h-dvh items-center justify-center px-4 py-10">
+    <div class="w-full max-w-md text-center">
+
+        <img src="./assets/images/error.svg" alt="Page not found" class="mx-auto w-full max-w-xs">
+
+        <h1 class="mt-6 text-3xl font-semibold text-gray-800">Page not found</h1>
+
+        <p class="mt-2 text-sm text-gray-500">
+            The page you're looking for doesn't exist, or it may have moved.
+        </p>
+
+        <div class="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <a routerLink="/home" class="btn-main w-full rounded-lg text-center text-sm font-medium sm:w-auto">
+                Back to Home
+            </a>
+            <a routerLink="/products"
+                class="w-full rounded-lg border border-gray-300 bg-white px-5 py-2 text-center text-sm font-medium text-gray-700 transition hover:border-main hover:text-main sm:w-auto">
+                Browse Products
+            </a>
+        </div>
+
+    </div>
+</section>

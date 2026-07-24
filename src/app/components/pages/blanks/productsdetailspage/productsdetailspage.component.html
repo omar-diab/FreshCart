@@ -1,0 +1,95 @@
+@if(productDetails !== null) {
+<section class="mx-auto my-6 max-w-6xl px-4">
+
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-[380px_1fr]">
+
+        <!-- gallery -->
+        <div>
+            <div class="overflow-hidden rounded-xl border border-gray-200 bg-white p-2">
+                <img [src]="selectedImage" [alt]="productDetails.title"
+                    class="h-[380px] w-full rounded-lg object-contain transition-opacity duration-300">
+            </div>
+
+            <div class="mt-3 flex gap-2 overflow-x-auto pb-1">
+                @for (img of galleryImages; track img) {
+                <button type="button" (click)="selectedImage = img"
+                    class="shrink-0 cursor-pointer overflow-hidden rounded-lg border-2 bg-white p-1 transition"
+                    [ngClass]="selectedImage === img ? 'border-main' : 'border-gray-200 hover:border-gray-400'">
+                    <img [src]="img" [alt]="productDetails.title" class="h-16 w-16 object-contain">
+                </button>
+                }
+            </div>
+        </div>
+
+        <!-- info -->
+        <div class="flex flex-col">
+
+            <span class="text-main text-sm font-medium">{{productDetails.category.name}}</span>
+
+            <h1 class="mt-1 text-2xl font-semibold text-gray-800">{{productDetails.title}}</h1>
+
+            <div class="mt-2 flex items-center gap-2">
+                <div class="flex items-center gap-0.5">
+                    @for (star of [1, 2, 3, 4, 5].slice(0, productDetails.ratingsAverage); track $index) {
+                    <i class="fa-solid fa-star text-rating text-sm"></i>
+                    }
+                    @if (productDetails.ratingsAverage % 1 !== 0) {
+                    <i class="fa-solid fa-star-half-stroke text-rating text-sm"></i>
+                    }
+                </div>
+                <span class="text-sm text-gray-500">
+                    {{productDetails.ratingsAverage}} ({{productDetails.ratingsQuantity}} reviews)
+                </span>
+            </div>
+
+            <p class="mt-4 whitespace-pre-line text-sm leading-relaxed text-gray-500">
+                {{productDetails.description}}
+            </p>
+
+            <div class="mt-4 flex flex-wrap items-center gap-3 border-t border-gray-200 pt-4">
+                <span class="text-main text-3xl font-semibold">{{productDetails.price | currency }}</span>
+
+                @if (productDetails.quantity > 0) {
+                <span class="rounded-full bg-green-50 px-3 py-1 text-xs font-medium text-main">In stock</span>
+                }
+                @else {
+                <span class="rounded-full bg-red-50 px-3 py-1 text-xs font-medium text-red-600">Out of stock</span>
+                }
+            </div>
+
+            <div class="mt-2 flex flex-wrap gap-x-6 gap-y-1 text-xs text-gray-500">
+                <span>Brand: <span class="text-gray-700">{{productDetails.brand.name}}</span></span>
+                <span>Sold: <span class="text-gray-700">{{productDetails.sold}}</span></span>
+            </div>
+
+            <button class="btn-main mt-6 w-full rounded-lg py-3 font-medium" [disabled]="productDetails.quantity === 0"
+                (click)="addToCart(productDetails._id)">
+                <i class="fa-solid fa-cart-plus mr-2"></i>
+                Add To Cart
+            </button>
+
+        </div>
+    </div>
+</section>
+}
+@else {
+<section class="mx-auto my-6 max-w-6xl px-4">
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-[380px_1fr]">
+        <div>
+            <div class="h-[396px] animate-pulse rounded-xl bg-gray-200"></div>
+            <div class="mt-3 flex gap-2">
+                @for (n of [1,2,3,4]; track n) {
+                <div class="h-[74px] w-[74px] animate-pulse rounded-lg bg-gray-200"></div>
+                }
+            </div>
+        </div>
+        <div class="space-y-3">
+            <div class="h-4 w-32 animate-pulse rounded bg-gray-200"></div>
+            <div class="h-8 w-2/3 animate-pulse rounded bg-gray-200"></div>
+            <div class="h-4 w-40 animate-pulse rounded bg-gray-200"></div>
+            <div class="h-24 animate-pulse rounded bg-gray-200"></div>
+            <div class="h-10 w-40 animate-pulse rounded bg-gray-200"></div>
+        </div>
+    </div>
+</section>
+}

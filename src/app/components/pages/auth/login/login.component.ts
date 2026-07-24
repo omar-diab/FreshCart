@@ -4,6 +4,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgClass } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ export class LoginComponent {
   private readonly _AuthService = inject(AuthService);
   private readonly _FormBuilder = inject(FormBuilder);
   private readonly _Router = inject(Router);
+  private readonly _ToastrService = inject(ToastrService);
 
   msgError: string = '';
   msgSuccess: boolean = false;
@@ -38,6 +40,7 @@ export class LoginComponent {
         next: (res) => {
           if (res.message == 'success') {
             this.msgSuccess = true;
+            this._ToastrService.success('Loged Successfully!')
             setTimeout(() => {
               localStorage.setItem('userToken', res.token)
 
@@ -51,6 +54,7 @@ export class LoginComponent {
         error: (err: HttpErrorResponse) => {
           this.msgError = err.error.message;
           this.isLoading = false;
+          this._ToastrService.error(this.msgError)
         },
       });
     } else {

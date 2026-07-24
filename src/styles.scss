@@ -1,117 +1,85 @@
-@use 'ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
+@use 'ngx-owl-carousel-o/lib/styles/scss/owl.carousel' as owl-carousel;
 @use 'ngx-owl-carousel-o/lib/styles/scss/owl.theme.default' as owl-theme;
 @import url("https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@300&display=swap");
-@import 'ngx-toastr/toastr';
+@import "ngx-toastr/toastr";
+@import "tailwindcss";
 
+@theme {
+  --color-main: #0aad0a;
+  --color-main-hover: #11bd11;
+  --color-main-light: #f0f3f2;
+  --color-rating: #ffc908;
 
+  /* preflight pulls body font from --font-sans, so no body{} rule needed */
+  --font-sans: "Times New Roman", sans-serif;
 
-:root {
-  --main-color: #0aad0a;
-  --light-color: #f0f3f2;
-  --shadow: rgba(145, 158, 171, 0.2) 0px 2px 4px -1px,
-    rgba(145, 158, 171, 0.14) 0px 4px 5px 0px,
-    rgba(145, 158, 171, 0.12) 0px 1px 10px 0px;
-  --font-family: "Times New Roman", sans-serif;
-  --rating-color: #ffc908;
+  --shadow-soft:
+    0 2px 4px -1px rgb(145 158 171 / 0.2),
+    0 4px 5px 0 rgb(145 158 171 / 0.14),
+    0 1px 10px 0 rgb(145 158 171 / 0.12);
+  --shadow-product: 0 0 10px #11bd1168;
 }
 
-body {
-  font-family: var(--font-family) !important;
+@layer base {
+  a,
+  a:hover {
+    color: black;
+    text-decoration: none;
+  }
 }
 
-.nav-link {
-  transition: unset !important;
+@layer components {
+  .btn-main {
+    background-color: var(--color-main);
+    padding: 7px 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.5s;
+  }
+
+  .btn-main:hover {
+    background-color: var(--color-main-hover);
+  }
+
+  .btn-main:disabled,
+  .btn-main:disabled:hover {
+    cursor: not-allowed;
+    background-color: #ccc;
+  }
+
+  .product {
+    border-radius: 5px;
+    border: 1px solid var(--color-main);
+    transition: box-shadow 0.5s;
+    overflow: hidden;
+  }
+
+  .product:hover {
+    box-shadow: var(--shadow-product);
+  }
+
+  .product .btn-main {
+    transform: translateY(140%);
+    transition: transform 0.7s;
+  }
+
+  .product:hover .btn-main {
+    transform: translateY(0);
+  }
+
+  .active-link {
+    color: var(--color-main);
+    border-radius: 5px;
+  }
+
+  .nav-link {
+    transition: none;
+  }
 }
 
-.active-link {
-  color: var(--main-color) !important;
-  border-radius: 5px;
-}
-
-.rating-color {
-  color: var(--rating-color);
-}
-
-.cr {
-  cursor: pointer;
-}
-
-a,
-a:hover {
-  color: black;
-  text-decoration: none;
-}
-
-.product {
-  border-radius: 5px;
-  border: solid 1px var(--main-color);
-  transition: box-shadow 0.5s;
-  overflow: hidden;
-}
-
-.product:hover {
-  box-shadow: 0 0 10px #11bd1168;
-}
-
-.product .btn-main {
-  transform: translateY(140%);
-  transition: transform .7s;
-}
-
-.product:hover .btn-main {
-  transform: translateY(0);
-}
-
-.font-sm {
-  font-size: 12px;
-}
-
-.text-main {
-  color: var(--main-color) !important;
-}
-
-.bg-main {
-  background-color: var(--main-color) !important;
-}
-
-.bg-main-light {
-  background-color: var(--light-color) !important;
-}
-
-.btn-main {
-  background-color: var(--main-color);
-  padding: 7px 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  color: #fff;
-  cursor: pointer;
-  transition: background-color 0.5s;
-}
-
-.btn-main:disabled {
-  cursor: not-allowed;
-  background-color: #ccc;
-}
-
-.btn-main:disabled:hover {
-  background-color: #ccc;
-}
-
-.btn-main:hover {
-  background-color: #11bd11;
-}
-
-.category-img {
-  height: 250px;      /* choose the height you want */
-  object-fit: cover;  /* crops image to fill */
-}
-
-.slider-big-img {
-  height: 400px;      /* choose the height you want */
-  object-fit: cover;  /* crops image to fill */
-}
-
-.slider-small-img {
-  height: 200px;      /* choose the height you want */
-  object-fit: cover;  /* crops image to fill */
+@utility category-img {
+  height: 250px;
+  object-fit: cover;
 }

@@ -4,17 +4,20 @@ import { Observable } from 'rxjs';
 import { environments } from '../../environments/environments';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProductsService {
   private readonly _HttpClient = inject(HttpClient);
 
-  getAllProducts():Observable<any> {
-    return this._HttpClient.get(`${environments.baseURL}/api/v1/products`)
+  getAllProducts(page: number = 1): Observable<any> {
+    return this._HttpClient.get(`${environments.baseURL}/api/v1/products`, {
+      params: { page },
+    });
   }
 
-  getSpecificProduct(id:string | null):Observable<any> {
-    return this._HttpClient.get(`${environments.baseURL}/api/v1/products/${id}`)
+  getSpecificProduct(id: string | null): Observable<any> {
+    return this._HttpClient.get(
+      `${environments.baseURL}/api/v1/products/${id}`,
+    );
   }
 }
-
