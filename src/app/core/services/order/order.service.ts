@@ -16,7 +16,7 @@ export class OrderService {
 }
 
   checkOut(id:string|null, shippingDetails: object): Observable<any> {
-    return this._HttpClient.post(`${environments.baseURL}/api/v1/orders/checkout-session/${id}/?url=${environments.URLServer}`, {
+    return this._HttpClient.post(`${environments.baseURL}/api/v1/orders/checkout-session/${id}/?url=${environments.URLProduction}`, {
       'shippingDetails': shippingDetails,
     },
     {
